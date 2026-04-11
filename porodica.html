@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zora – Personalizirani Posteri</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --midnight-blue: #0a1d37;
+            --gold-accent: #c5a358;
+            --soft-white: #fcfcfc;
+            --text-dark: #2d2d2d;
+            --font-main: 'Montserrat', sans-serif;
+            --font-heading: 'Playfair Display', serif;
+        }
+
+        body { 
+            font-family: var(--font-main); 
+            background: var(--soft-white); 
+            color: var(--text-dark); 
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar { 
+            background: var(--midnight-blue) !important; 
+            padding: 3px 0;
+            border-bottom: 2px solid var(--gold-accent);
+        }
+        
+        .navbar-brand { 
+            font-family: 'Tw Cen MT'; 
+            font-weight: 700;
+            color: var(--gold-accent) !important; 
+            font-size: 2.5rem; 
+            letter-spacing: 7px;
+        }
+
+        .nav-link { 
+            color: var(--soft-white) !important; 
+            font-size: 0.8rem; 
+            letter-spacing: 1.5px; 
+            font-weight: 500; 
+            text-transform: uppercase;
+        }
+        .nav-link:hover { color: var(--gold-accent) !important; }
+
+        .dropdown-menu {
+    background-color: #0a1d37; /* Midnight blue */
+    border: 1px solid rgba(197, 163, 88, 0.4); /* Suptilna zlatna ivica */
+    border-radius: 12px; /* Zaobljeni uglovi kao na slici */
+    padding: 8px; /* Prostor unutar okvira */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    margin-top: 15px !important;
+}
+
+.dropdown-item {
+    color: #fcfcfc !important;
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 10px 20px;
+    border-radius: 8px; /* Zaobljene ivice i za samu stavku */
+    transition: all 0.2s ease;
+    text-transform: none; /* Normalna slova, ne samo velika */
+    letter-spacing: 0.5px;
+}
+
+/* Hover efekat sa prve slike */
+.dropdown-item:hover {
+    background-color: #c5a358 !important; /* Zlatna pozadina */
+    color: #0a1d37 !important; /* Tamna slova na zlatnoj pozadini */
+}
+
+/* Uklanjanje Bootstrapovog plavog fokusa */
+.dropdown-item:focus {
+    background-color: #c5a358 !important;
+    color: #0a1d37 !important;
+}
+
+        /* Hero Sekcija */
+        .hero-banner {
+            background: linear-gradient(rgba(10, 29, 55, 0.8), rgba(10, 29, 55, 0.8)), url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--soft-white);
+            padding: 160px 0;
+            text-align: center;
+        }
+        .hero-banner h1 { 
+            font-family: var(--font-heading);
+            font-weight: 700; 
+            font-size: clamp(2.5rem, 8vw, 4rem); 
+            margin-bottom: 20px; 
+        }
+        .hero-banner p { font-weight: 300; opacity: 0.9; letter-spacing: 1px; }
+        .btn-outline-light { color: var(--soft-white); border-color: var(--soft-white); }
+        .btn-outline-light:hover { background: var(--gold-accent); border-color: var(--gold-accent); color: var(--midnight-blue); }
+
+        /* Info Box */
+        .info-section { padding: 80px 0; background: var(--soft-white); }
+        .info-card { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            text-align: center; 
+            border: none; 
+            padding: 40px; 
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(10, 29, 55, 0.05);
+        }
+        .info-card h2 { 
+            font-family: var(--font-heading);
+            font-weight: 700; 
+            margin-bottom: 30px; 
+            color: var(--midnight-blue); 
+        }
+        .info-card p { line-height: 1.8; color: var(--text-dark); font-size: 1rem; }
+
+        /* Proizvodi */
+        .product-card { border: none; margin-bottom: 30px; transition: 0.4s ease; background: transparent; display: flex; flex-direction: column; height: 100%; position: relative;}
+        
+        .img-wrapper { 
+            background: #fff; 
+            border-radius: 12px; 
+            margin-bottom: 20px;
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            overflow: hidden;
+            height: 420px; 
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .product-card:hover .img-wrapper { box-shadow: 0 20px 40px rgba(10, 29, 55, 0.2); transform: translateY(-5px); }
+        
+        .product-card img { 
+            width: 100%; 
+            height: 100%; 
+            display: block; 
+            object-fit: cover; 
+            transition: transform 0.8s ease;
+        }
+        .product-card:hover img { transform: scale(1.05); }
+        
+        .product-title { 
+            font-family: var(--font-main);
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            margin-bottom: 8px; 
+            color: var(--midnight-blue);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .price-badge {
+            background: rgba(197, 163, 88, 0.1);
+            color: var(--gold-accent);
+            font-weight: 700;
+            padding: 5px 15px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            border: 1px solid rgba(197, 163, 88, 0.3);
+            text-align: center;
+            align-self: center;
+        }
+
+        .btn-astra {
+            background: var(--midnight-blue);
+            color: var(--soft-white);
+            border: 2px solid var(--midnight-blue);
+            padding: 15px 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            border-radius: 5px;
+            width: 100%;
+            transition: 0.3s;
+            text-transform: uppercase;
+            margin-top: auto;
+        }
+        .btn-astra:hover { background: transparent; color: var(--midnight-blue); border-color: var(--midnight-blue); }
+
+        /* FAQ */
+        .faq-section { padding: 80px 0; background: #fff; }
+        .accordion-button:not(.collapsed) { background-color: var(--gold-accent); color: var(--midnight-blue); }
+
+        /* Footer */
+        footer { background: var(--midnight-blue); color: var(--soft-white); padding: 30px 0; border-top: 4px solid var(--gold-accent); }
+        .footer-logo { font-family: 'Tw Cen MT';  font-weight: 700; font-size: 2.5rem; color: var(--gold-accent); letter-spacing: 5px; }
+
+        /* Floating Cart */
+        .cart-float {
+            position: fixed; bottom: 30px; right: 30px;
+            background: var(--gold-accent); color: var(--midnight-blue);
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; z-index: 1000; box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+        .cart-float:hover { transform: scale(1.1); }
+        .cart-count {
+            position: absolute; top: 0; right: 0;
+            background: var(--midnight-blue); color: white;
+            width: 22px; height: 22px; border-radius: 50%;
+            font-size: 0.7rem; font-weight: 700; display: flex;
+            justify-content: center; align-items: center; border: 2px solid var(--gold-accent);
+        }
+
+        /* Modals */
+        .modal-fullscreen-custom .modal-dialog {
+            max-width: 80%;
+            margin: 2rem auto;
+            height: auto;
+        }
+        .modal-fullscreen-custom .modal-content {
+            height: auto;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .detail-img-container { 
+            background: #111; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            height: 90vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .detail-img { 
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain; 
+        }
+
+        .detail-sidebar {
+            background: white;
+            height: 70vh;
+            overflow-y: auto;
+            border-left: 1px solid #eee;
+        }
+
+        @media (max-width: 991px) {
+            .modal-fullscreen-custom .modal-dialog { max-width: 95%; margin: 0.5rem auto; }
+            .detail-img-container { height: 50vh; }
+            .detail-sidebar { height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Zora</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navRes" style="filter: invert(1);"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navRes">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#kako-naručiti">KAKO NARUČITI</a></li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="porodica.html" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            MODELI
+                        </a>
+                        <ul class="dropdown-menu shadow" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="zvjezdanonebo.html">Zvjezdano Nebo</a></li>
+                            <li><a class="dropdown-item" href="mjesec.html">Mjesec</a></li>
+                            <li><a class="dropdown-item" href="porodica.html">Porodica</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-banner">
+        <div class="container">
+            <h1>Trenutak koji postaje vječnost</h1>
+            <p class="fs-4">Personalizirani dizajni koji čuvaju vaše najljepše porodične priče.</p>
+            <a href="#shop" class="btn btn-outline-light mt-4 px-5 py-2 fw-bold">ISTRAŽI MODELE</a>
+        </div>
+    </div>
+
+    <section class="info-section" id="kako-naručiti">
+        <div class="container">
+            <div class="info-card">
+                <h2>Uspomene ispisane ljubavlju</h2>
+                <p>Naši personalizirani posteri kreirani su da zabilježe najvažnije trenutke u vašem životu – od rođenja djeteta do posebnih porodičnih jubileja. Svaki dizajn je unikatan i prilagođen isključivo Vama.</p>
+                <p><strong>Digitalna isporuka:</strong> Vaš poster u visokoj rezoluciji šaljemo direktno na Vaš email, spreman za štampu u bilo kojoj dimenziji.</p>
+                <p><strong>Za narudžbu je potrebno dostaviti:</strong> Željeni model, podatke (ime, datum, vrijeme rođenja/događaja), lokaciju i dimenzije.</p>
+                <p class="mt-3 text-muted small"><em>*Proizvod je digitalan. Štedite na poštarini i sami birate okvir po želji nakon štampe.</em></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5" id="shop">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Izaberite Svoj Model</h2>
+            <div style="width: 50px; height: 2px; background: var(--gold-accent); margin: 20px auto;"></div>
+        </div>
+        <div class="row g-4 justify-content-center" id="grid-shop"></div>
+    </section>
+
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <h3 class="text-center mb-5 fw-bold">Česta Pitanja</h3>
+                    <div class="accordion accordion-flush" id="astraFaq">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q1">Koji su rokovi isporuke?</button>
+                            </h2>
+                            <div id="q1" class="accordion-collapse collapse" data-bs-parent="#astraFaq">
+                                <div class="accordion-body">Vaš digitalni poster stiže na email u roku od 24 sata od trenutka narudžbe.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q2">U kojem formatu dobijam rad?</button>
+                            </h2>
+                            <div id="q2" class="accordion-collapse collapse" data-bs-parent="#astraFaq">
+                                <div class="accordion-body">Rad šaljemo u PDF i JPG formatu visoke rezolucije, idealno za štampu na bilo kojem papiru.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q3">Kako dobijam gotov dizajn?</button>
+                            </h2>
+                            <div id="q3" class="accordion-collapse collapse" data-bs-parent="#astraFaq">
+                                <div class="accordion-body">Nakon što završimo vaš personalizirani poster, šaljemo vam na vaš E-mail. Datoteke su spremne za izradu u bilo kojoj štampariji.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade modal-fullscreen-custom" id="productDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" style="position: absolute; top: 20px; right: 20px; z-index: 1050;"></button>
+                    <div class="row g-0">
+                        <div class="col-lg-8">
+                            <div class="detail-img-container" id="zoom-container">
+                                <img src="" id="detail-img-src" class="detail-img" alt="Detail">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 detail-sidebar p-4 p-lg-5 d-flex flex-column justify-content-center">
+                            <h2 id="detail-title" class="mb-3 fw-bold"></h2>
+                            <hr style="width: 50px; background: var(--gold-accent); height: 2px; opacity: 1;">
+                            <p id="detail-desc" class="text-dark my-3" style="font-style: italic; line-height: 1.6;"></p>
+                            
+                            <div class="my-4">
+                                <h6 class="fw-bold text-uppercase small" style="letter-spacing: 1px;">Izaberite Dimenzije:</h6>
+                                <div class="mt-3">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="radio" name="sizeRadio" id="size1" value="10" checked>
+                                        <label class="form-check-label" for="size1">A4 format - 21x30 cm (10,00 €)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="sizeRadio" id="size2" value="15">
+                                        <label class="form-check-label" for="size2">A3 format - 30x40 cm (15,00 €)</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-secondary small border-0 py-2 mb-4">
+                                <i class="bi bi-info-circle me-2"></i> Moguće je potpuno prilagoditi tekst, boju i citate vašim željama.
+                            </div>
+                            
+                            <button class="btn-astra py-3 shadow-sm" id="detail-add-btn">DODAJ U KORPU</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cartModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="row g-0">
+                    <div class="col-md-5 bg-light p-4">
+                        <h4 class="fw-bold mb-4">Vaša korpa</h4>
+                        <div id="cart-list"></div>
+                        <div class="mt-4 pt-3 border-top">
+                            <h5 class="fw-bold">Ukupno: <span id="cart-total">0.00 €</span></h5>
+                        </div>
+                    </div>
+                    <div class="col-md-7 p-4 p-lg-5">
+                        <h3 class="fw-bold mb-4">Podaci za dostavu</h3>
+                        <form action="https://api.web3forms.com/submit" method="POST">
+                            <input type="hidden" name="access_key" value="813b5e2a-c1aa-42c6-b81e-95eb1b9821e9">
+                            <input type="hidden" name="Izabrani_Modeli" id="hidden-cart-items">
+                            <div class="mb-3">
+                                <label class="small fw-bold">Ime i Prezime</label>
+                                <input type="text" name="Ime_Prezime" class="form-control" required placeholder="Vaše ime">
+                            </div>
+                            <div class="mb-3">
+                                <label class="small fw-bold">Vaš E-mail</label>
+                                <input type="email" name="Email" class="form-control" required placeholder="email@primjer.com">
+                            </div>
+                            <div class="mb-3">
+                                <label class="small fw-bold">Detalji narudžbe (Model, Datum, Grad, Opis...)</label>
+                                <textarea name="Detalji" class="form-control" rows="4" required placeholder="Npr: Mjesec 01, Mak Mišić, 01.02.2026, 10:25h, 2870gr/54cm..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-astra py-3">POŠALJI NARUDŽBU</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-float" data-bs-toggle="modal" data-bs-target="#cartModal">
+        <i class="bi bi-bag-heart fs-4"></i>
+        <div class="cart-count" id="cart-count">0</div>
+    </div>
+
+    <footer class="text-center">
+        <div class="container">
+            <div class="footer-logo mb-3">Zora</div>
+            <p class="mb-4">Digitalni dizajn po vašoj mjeri.</p>
+            <div class="d-flex justify-content-center gap-4 mb-4">
+                <a href="https://www.instagram.com/zora.gift/" class="text-white fs-4" target="_blank"><i class="bi bi-instagram"></i></a>
+                <a href="https://tiktok.com/@a.adnan778" class="text-white fs-4" target="_blank"><i class="bi bi-tiktok"></i></a>
+            </div>
+            <p class="small opacity-50">© 2026 Zora | Sva prava zadržana.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let cart = JSON.parse(localStorage.getItem('poklon_korpa')) || [];
+
+        const mojiProizvodi = [
+            { naslov: 'Porodica 01', slika: 'mak 1.png', opis: 'Simbol zajedništva i ljubavi. Dizajniran da prikaže toplinu i povezanost vaših najmilijih u unikatnom umjetničkom stilu.' },
+            { naslov: 'Porodica 02', slika: 'mia 1.png', opis: 'Prikaz neba u trenutku kada je vaša priča započela. Unikatan i romantičan poklon za sjećanje na najdraže datume.' },
+            { naslov: 'Porodica 03', slika: 'murić1.png', opis: 'Personalizirani poster sa podacima o rođenju vaše bebe. Savršen detalj za dječju sobu i vječna uspomena na prvi susret.' },
+            { naslov: 'Porodica 04', slika: 'ema1.png', opis: 'Personalizirani poster sa podacima o rođenju vaše bebe. Savršen detalj za dječju sobu i vječna uspomena na prvi susret.' },
+            { naslov: 'Porodica 05', slika: 'roditelji1.png', opis: 'Personalizirani poster sa podacima o rođenju vaše bebe. Savršen detalj za dječju sobu i vječna uspomena na prvi susret.' },
+            { naslov: 'Porodica 06', slika: 'MAMA.png', opis: 'Personalizirani poster sa podacima o rođenju vaše bebe. Savršen detalj za dječju sobu i vječna uspomena na prvi susret.' },
+            { naslov: 'Porodica 07', slika: 'tata1.png', opis: 'Personalizirani poster sa podacima o rođenju vaše bebe. Savršen detalj za dječju sobu i vječna uspomena na prvi susret.' },
+        ];
+
+        const products = mojiProizvodi.map((p, i) => ({
+            id: i + 1,
+            title: p.naslov,
+            img: `image/${p.slika}`,
+            description: p.opis
+        }));
+
+        function saveCart() {
+            localStorage.setItem('poklon_korpa', JSON.stringify(cart));
+        }
+
+        function render() {
+            const grid = document.getElementById('grid-shop');
+            if(!grid) return;
+            grid.innerHTML = products.map(p => `
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="product-card">
+                        <div class="img-wrapper" onclick="openLightbox(${p.id})">
+                            <img src="${p.img}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/600x800?text=Poklon+Poster'">
+                        </div>
+                        <h3 class="product-title">${p.title}</h3>
+                        <div class="text-center">
+                            <span class="price-badge">od 10,00 €</span>
+                        </div>
+                        <button class="btn-astra" onclick="openLightbox(${p.id})">DETALJI I NARUDŽBA</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openLightbox(id) {
+            const p = products.find(item => item.id === id);
+            if(!p) return;
+
+            const imgElement = document.getElementById('detail-img-src');
+            imgElement.src = p.img;
+            
+            document.getElementById('detail-title').innerText = p.title;
+            document.getElementById('detail-desc').innerText = p.description;
+            
+            const btn = document.getElementById('detail-add-btn');
+            btn.onclick = () => {
+                const selectedPrice = parseFloat(document.querySelector('input[name="sizeRadio"]:checked').value);
+                const selectedSize = selectedPrice === 10 ? "A4 (21x30cm)" : "A3 (30x40cm)";
+                addToCart(p.id, selectedPrice, selectedSize);
+                bootstrap.Modal.getInstance(document.getElementById('productDetailModal')).hide();
+            };
+
+            const detailModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
+            detailModal.show();
+        }
+
+        function addToCart(id, price, size) {
+            const product = products.find(p => p.id === id);
+            cart.push({ ...product, selectedPrice: price, selectedSize: size });
+            saveCart();
+            updateCart();
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('cartModal')).show();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            saveCart();
+            updateCart();
+        }
+
+        function updateCart() {
+            const count = document.getElementById('cart-count');
+            const list = document.getElementById('cart-list');
+            const total = document.getElementById('cart-total');
+            const hiddenInput = document.getElementById('hidden-cart-items');
+
+            if (count) count.innerText = cart.length;
+            let sum = 0;
+            let details = [];
+
+            if (cart.length === 0) {
+                if (list) list.innerHTML = "<p class='text-center text-muted py-4'>Vaša korpa je prazna.</p>";
+            } else {
+                if (list) {
+                    list.innerHTML = cart.map((item, index) => {
+                        sum += item.selectedPrice;
+                        details.push(`${item.title} (${item.selectedSize})`);
+                        return `
+                            <div class="d-flex align-items-center gap-3 border-bottom py-3">
+                                <img src="${item.img}" style="width:50px; height:65px; object-fit:cover; border-radius:5px;">
+                                <div class="flex-grow-1">
+                                    <span class="small fw-bold d-block">${item.title}</span>
+                                    <span class="small text-muted">${item.selectedSize}</span>
+                                    <span class="small fw-bold d-block" style="color:var(--gold-accent)">${item.selectedPrice.toFixed(2)} €</span>
+                                </div>
+                                <i class="bi bi-trash3 text-danger" style="cursor:pointer" onclick="removeFromCart(${index})"></i>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    cart.forEach(item => {
+                        sum += item.selectedPrice;
+                        details.push(`${item.title} (${item.selectedSize})`);
+                    });
+                }
+            }
+
+            if (total) total.innerText = sum.toFixed(2) + " €";
+            
+            if (hiddenInput) {
+                hiddenInput.value = details.join(" | ") + " --- UKUPNO: " + sum.toFixed(2) + " €";
+            }
+        }
+
+        window.onload = () => {
+            render(); 
+            updateCart(); 
+        };
+    </script>
+</body>
+</html>
