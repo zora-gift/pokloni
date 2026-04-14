@@ -54,36 +54,34 @@
 
         /* Dropdown Styling */
         .dropdown-menu {
-    background-color: #0a1d37; /* Midnight blue */
-    border: 1px solid rgba(197, 163, 88, 0.4); /* Suptilna zlatna ivica */
-    border-radius: 12px; /* Zaobljeni uglovi kao na slici */
-    padding: 8px; /* Prostor unutar okvira */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    margin-top: 15px !important;
-}
+            background-color: #0a1d37;
+            border: 1px solid rgba(197, 163, 88, 0.4);
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-top: 15px !important;
+        }
 
-.dropdown-item {
-    color: #fcfcfc !important;
-    font-size: 0.9rem;
-    font-weight: 400;
-    padding: 10px 20px;
-    border-radius: 8px; /* Zaobljene ivice i za samu stavku */
-    transition: all 0.2s ease;
-    text-transform: none; /* Normalna slova, ne samo velika */
-    letter-spacing: 0.5px;
-}
+        .dropdown-item {
+            color: #fcfcfc !important;
+            font-size: 0.9rem;
+            font-weight: 400;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            text-transform: none;
+            letter-spacing: 0.5px;
+        }
 
-/* Hover efekat sa prve slike */
-.dropdown-item:hover {
-    background-color: #c5a358 !important; /* Zlatna pozadina */
-    color: #0a1d37 !important; /* Tamna slova na zlatnoj pozadini */
-}
+        .dropdown-item:hover {
+            background-color: #c5a358 !important;
+            color: #0a1d37 !important;
+        }
 
-/* Uklanjanje Bootstrapovog plavog fokusa */
-.dropdown-item:focus {
-    background-color: #c5a358 !important;
-    color: #0a1d37 !important;
-}
+        .dropdown-item:focus {
+            background-color: #c5a358 !important;
+            color: #0a1d37 !important;
+        }
 
         /* Hero Sekcija */
         .hero-banner {
@@ -189,6 +187,27 @@
             margin-top: auto;
         }
         .btn-astra:hover { background: transparent; color: var(--midnight-blue); border-color: var(--midnight-blue); }
+
+        /* Testimonials */
+        .testimonials-section { padding: 80px 0; background: #f8f9fa; }
+        .testimonial-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            height: 100%;
+            border-bottom: 3px solid var(--gold-accent);
+        }
+        .testimonial-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--gold-accent);
+        }
+        .stars { color: var(--gold-accent); margin-bottom: 15px; }
 
         /* FAQ */
         .faq-section { padding: 80px 0; background: #fff; }
@@ -312,6 +331,48 @@
             <div style="width: 50px; height: 2px; background: var(--gold-accent); margin: 20px auto;"></div>
         </div>
         <div class="row g-4 justify-content-center" id="grid-shop"></div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Zadovoljni Klijenti</h2>
+                <p class="text-muted">Šta kažu oni koji su svoje uspomene povjerili nama</p>
+                <div style="width: 50px; height: 2px; background: var(--gold-accent); margin: 20px auto;"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <img src="SELMA-ADNAN1.png" class="testimonial-img" alt="Rad">
+                        <div class="stars">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="fst-italic">"Preoduševljena sam dizajnom! Poster je uživo još ljepši, a komunikacija je bila brza i profesionalna."</p>
+                        <h6 class="fw-bold mt-3">- Selma Š.</h6>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <img src="MJESEC 2-.png" class="testimonial-img" alt="Rad">
+                        <div class="stars">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="fst-italic">"Savršen poklon za godišnjicu. Momak je ostao bez teksta. Sve preporuke za Zora Gift!"</p>
+                        <h6 class="fw-bold mt-3">- Nejla H.</h6>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <img src="mak 1.png" class="testimonial-img" alt="Rad">
+                        <div class="stars">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="fst-italic">"Kvalitet digitalnog fajla je vrhunski, odštampali smo ga u A4 formatu i izgleda nevjerovatno."</p>
+                        <h6 class="fw-bold mt-3">- David M.</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="faq-section" id="faq">
@@ -461,7 +522,6 @@
             description: p.opis
         }));
 
-        // Inicijalizacija korpe iz LocalStorage-a
         let cart = JSON.parse(localStorage.getItem('poklon_korpa')) || [];
 
         function saveCart() {
@@ -511,14 +571,14 @@
         function addToCart(id, price, size) {
             const product = products.find(p => p.id === id);
             cart.push({ ...product, selectedPrice: price, selectedSize: size });
-            saveCart(); // Spasi u memoriju
+            saveCart();
             updateCart();
             bootstrap.Modal.getOrCreateInstance(document.getElementById('cartModal')).show();
         }
 
         function removeFromCart(index) {
             cart.splice(index, 1);
-            saveCart(); // Spasi u memoriju
+            saveCart();
             updateCart();
         }
 
@@ -568,7 +628,7 @@
 
         window.onload = () => {
             render();
-            updateCart(); // Inicijalno učitavanje stanja korpe
+            updateCart();
         };
     </script>
 </body>
